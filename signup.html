@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('assets/background2.jpg'); 
+            background-size: cover;
+        }
+        .signup-container {
+            text-align: center;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 1em;
+        }
+        .login-message {
+            margin-top: 15px;
+            color: #fff;
+            font-size: 1.2em;
+        }
+        .login-message a {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+        .login-message a:hover {
+            text-decoration: underline;
+        }
+        .home-button {
+            margin-top: 15px;
+        }
+        .home-button button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #00ff0d;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .home-button button:hover {
+            background-color: #00b318;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h2>Signup</h2>
+        <form>
+            <input type="text" name="username" class="input-field" placeholder="Username" />
+            <input type="email" name="email" class="input-field" placeholder="Email" />
+            <input type="password" name="password" class="input-field" placeholder="Password" />
+            <button type="submit">Signup</button>
+        </form>
+        <div class="login-message">
+            <p>Already have an account? <a href="login.html">Login</a></p>
+        </div>
+        <div class="home-button">
+            <button onclick="window.location.href='index.html'">Home</button>
+        </div>
+    </div>
+    <script>
+        document.querySelector("form").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const username = document.querySelector("input[name='username']").value;
+            const email = document.querySelector("input[name='email']").value;
+            const password = document.querySelector("input[name='password']").value;
+
+            if (!username || !email || !password) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            if (password.length < 6) {
+                alert("Password must be at least 6 characters long.");
+                return;
+            }
+
+            // Send the form data using Fetch API
+            fetch("/signup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: new URLSearchParams({ username, email, password }),
+            })
+                .then((response) => {
+                    if (response.status === 409) {
+                        response.text().then(message => alert(message)); // Show specific message
+                    } else if (response.ok) {
+                        alert("Signup successful! Redirecting to login page.");
+                        window.location.href = "/login.html";
+                    } else {
+                        alert("An error occurred during signup. Please try again.");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error during signup:", error);
+                    alert("An error occurred. Please try again.");
+                });
+        });
+    </script>
+</body>
+</html>

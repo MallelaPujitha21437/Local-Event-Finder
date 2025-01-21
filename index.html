@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Event Finder</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #fff;
+            background-image: url('assets/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .heading {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            font-size: 2.5em;
+        }
+
+        .top-right {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .button-link {
+            display: inline-block;
+            padding: 10px 15px;
+            font-size: 1em;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-link:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-right">
+        <a href="login.html" class="button-link" id="login-link">Login</a>
+        <a href="signup.html" class="button-link" id="signup-link">Signup</a>
+    </div>
+
+    <div class="container">
+        <div class="heading" id="greeting">Welcome to Local Event Finder</div>
+    </div>
+
+    <script>
+        // Dynamic Greeting
+        const hours = new Date().getHours();
+        const greeting = hours < 12 ? "Good Morning!" : hours < 18 ? "Good Afternoon!" : "Good Evening!";
+        document.getElementById('greeting').textContent = `${greeting} Welcome to Local Event Finder`;
+
+        // Handle visibility of login and signup links based on user status
+        const params = new URLSearchParams(window.location.search);
+        const username = params.get("username");
+
+        if (username) {
+            // User is logged in
+            document.getElementById("login-link").style.display = "none";
+            document.getElementById("signup-link").style.display = "none";
+        }
+    </script>
+</body>
+</html>

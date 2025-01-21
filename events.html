@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Search</title>
+    <style>
+        body {
+            margin: 0;
+            background-image: url('assets/background3.jpg'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .search-container {
+            text-align: center;
+            color: #ffffffd7;
+            background-color: rgba(0, 0, 0, 0.729);
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px; /* Add space between buttons */
+            margin-top: 10px;
+        }
+
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 1em;
+        }
+
+        .button-link {
+            text-decoration: none;
+            color: white;
+            background-color: green;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-link:hover {
+            background-color: darkgreen;
+        }
+
+        .events {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%; 
+            padding: 20px; 
+            box-sizing: border-box;
+            gap: 20px; 
+        }
+
+        .event-card {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            flex: 1 1 calc(25% - 40px); 
+            max-width: 300px;
+            text-align: center;
+            box-sizing: border-box; 
+            min-width: 200px; 
+        }
+
+        .event-card h3 {
+            font-size: 2.0em;
+            margin-bottom: 10px;
+        }
+
+        .event-card p {
+            font-size: 1em;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <h2>Find Events</h2>
+        <input type="text" id="searchQuery" placeholder="Enter city or event type">
+        <div class="button-container">
+            <a href="index.html" class="button-link">Home</a>
+            <button onclick="searchEvents()">Search</button>
+        </div>
+    </div>
+    <div id="events" class="events"></div>
+
+    <script>
+        async function searchEvents() {
+            const query = document.getElementById('searchQuery').value;
+            const apiKey = 'eAw1K7r1qQmmKU6QBhJcYlk6FZLKDDke'; 
+            const url = `https://app.ticketmaster.com/discovery/v2/events.json?keyword=${query}&apikey=${apiKey}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                const events = data._embedded ? data._embedded.events : [];
+                let eventsHTML = '';
+
+                events.forEach(event => {
+                    eventsHTML += `
+                        <div class="event-card">
+                            <h3>${event.name}</h3>
+                            <p>${event.dates.start.localDate}</p>
+                            <p>${event._embedded.venues[0].name}, ${event._embedded.venues[0].city.name}</p>
+                        </div>
+                    `;
+                });
+
+                document.getElementById('events').innerHTML = eventsHTML || '<p>No events found.</p>';
+            } catch (error) {
+                console.error('Error fetching events:', error);
+                document.getElementById('events').innerHTML = '<p>Sorry, something went wrong. Please try again.</p>';
+            }
+        }
+    </script>
+</body>
+</html>
