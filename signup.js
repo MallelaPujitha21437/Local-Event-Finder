@@ -99,6 +99,6 @@ app.get("/events.html", function (req, res) {
 });
 
 // Set app port
-app.listen(1900, '0.0.0.0', () => {
+app.listen(19000, '0.0.0.0', () => {
     console.log('Server is running on port 1900');
 });
