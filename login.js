@@ -4,6 +4,9 @@ const bodyParser=require("body-parser");
 const encoder=bodyParser.urlencoded();
 
 const app=express();
+const port=1900;
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 app.use("/assets",express.static("assets"));
 app.use(express.static(__dirname));
 
