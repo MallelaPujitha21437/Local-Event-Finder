@@ -94,6 +94,15 @@
             margin: 5px 0;
             font-style: bold;
         }
+
+        /* Updated styles for error and no events message */
+        .error-message, .no-events {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -129,10 +138,10 @@
                     `;
                 });
 
-                document.getElementById('events').innerHTML = eventsHTML || '<p>No events found.</p>';
+                document.getElementById('events').innerHTML = eventsHTML || '<p class="no-events">No events found.</p>';
             } catch (error) {
                 console.error('Error fetching events:', error);
-                document.getElementById('events').innerHTML = '<p>Sorry, something went wrong. Please try again.</p>';
+                document.getElementById('events').innerHTML = '<p class="error-message">Sorry, something went wrong. Please try again.</p>';
             }
         }
     </script>
