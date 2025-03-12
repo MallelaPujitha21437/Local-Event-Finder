@@ -36,7 +36,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px; /* Add space between buttons */
+            gap: 10px;
             margin-top: 10px;
         }
 
@@ -69,7 +69,7 @@
             width: 100%; 
             padding: 20px; 
             box-sizing: border-box;
-            gap: 20px; 
+            gap: 20px;
         }
 
         .event-card {
@@ -77,25 +77,29 @@
             color: #fff;
             padding: 15px;
             border-radius: 8px;
-            flex: 1 1 calc(25% - 40px); 
+            flex: 1 1 calc(25% - 40px);
             max-width: 300px;
             text-align: center;
-            box-sizing: border-box; 
-            min-width: 200px; 
+            box-sizing: border-box;
+            min-width: 200px;
         }
 
         .event-card h3 {
-            font-size: 2.0em;
+            font-size: 1.8em;
             margin-bottom: 10px;
         }
 
         .event-card p {
-            font-size: 10px;
+            font-size: 16px; /* General text size */
             margin: 5px 0;
-            
         }
 
-        /* Updated styles for error and no events message */
+        .event-card p:last-child {
+            font-size: 12px; /* Smaller font size for venue details */
+            font-weight: normal;
+            color: #ccc;
+        }
+
         .error-message, .no-events {
             font-weight: bold;
             font-size: 40px;
