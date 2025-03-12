@@ -10,7 +10,7 @@ body {
         align-items: center;
         height: 100vh;
         margin: 0;
-        background-image: url('/assets/background2.jpg'); 
+        background-color: #fff;
         background-size: cover;
     }
     .login-container {
